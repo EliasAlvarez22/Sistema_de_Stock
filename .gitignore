@@ -361,6 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/ASP.NET Framework/Web.config
-/ASP.NET Framework/Web.Debug.config
-/ASP.NET Framework/Web.Release.config
+/ASP_NET_Framework/Web.config
+/ASP_NET_Framework/Web.Debug.config
+/ASP_NET_Framework/Web.Release.config
+/ASP_NET_Framework/Scripts/

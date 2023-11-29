@@ -68,8 +68,7 @@
                                         </ul>
                                     </div>
                                 </li>       
-                                <asp:Image ID="imgAvatar" runat="server" Width="50px" Height="50px" AlternateText="Avatar Perfil" CssClass="rounded-circle img-fluid" />
-                        
+                                <asp:Image ID="imgAvatar" runat="server" Width="50px" Height="50px" AlternateText="Avatar Perfil" CssClass="rounded-circle img-fluid" />                        
                         <%}
                           else
                           { %>                                                            
