@@ -6,9 +6,9 @@
             <ContentTemplate>
                 <div class="mt-md-4 mb-4">
                     <label> Filtros</label>
-                    <asp:TextBox runat="server" ID="txtFiltro" placeholder="Nombre,código.."  AutoPostBack="true" CssClass="form-control d-inline-block" OnTextChanged="txtFiltro_TextChanged" Width="300px"/>                            
+                    <asp:TextBox runat="server" ID="txtFiltro" placeholder="Nombre,código.."  AutoPostBack="true" CssClass="form-control d-inline-block" data-cy="txtFiltroRapido" OnTextChanged="txtFiltro_TextChanged" Width="300px"/>                            
                     <label>Filtro avanzado</label>
-                    <asp:CheckBox runat="server" ID="cbxFiltroAvanzado" AutoPostBack="true" CssClass="ms-lg-2 "/>
+                    <asp:CheckBox runat="server" ID="cbxFiltroAvanzado" AutoPostBack="true" CssClass="ms-lg-2 " data-cy="cbxFiltroAvanzado"/>
                 </div>
                 <%if (cbxFiltroAvanzado.Checked)
                   {
@@ -26,10 +26,10 @@
                         </div>     
                         <div class="col">
                             <label>Filtro</label>
-                            <asp:TextBox runat="server" ID="txtFiltroAvanzado" CssClass="form-control  d-inline-block " Width="300px" />
+                            <asp:TextBox runat="server" ID="txtFiltroAvanzado" CssClass="form-control  d-inline-block " Width="300px" data-cy="txtFiltroAvanzado"/>
                         </div>  
                         <div class="col"> 
-                            <asp:Button Text="Buscar" runat="server" ID="btnBuscar" OnClick="btnBuscar_Click" CssClass="btn btn-primary mt-4"/>
+                            <asp:Button Text="Buscar" runat="server" ID="btnBuscar" OnClick="btnBuscar_Click" CssClass="btn btn-primary mt-4" data-cy="btnFiltrar"/>
                         </div>
                     </section>
                 <%}%>
@@ -39,7 +39,7 @@
             <ContentTemplate>               
                 <section class=" d-flex flex-column align-items-lg-center">
                  <%
-                     if (!dgvArticulos.Visible)
+                     if (dgvArticulos.Rows.Count == 0)
                      {
                 %>
                         <label class="text-center mb-3 fw-bold fs-2">No hay resultados!</label>        
@@ -60,17 +60,13 @@
                                 <asp:commandfield headertext="Acción" showselectbutton="true" SelectText='<i class="bi bi-pencil-fill"></i>' ItemStyle-ForeColor="#0099ff"/> 
                             </columns>                    
                         </asp:GridView>
-                    </div> 
-
-                    <asp:GridView runat="server" ID="ASE"></asp:GridView>
+                    </div>                    
                     <%
                     }
-                    %>
-                    
-            <asp:HyperLink runat="server" ID="btnAgregar" NavigateUrl="~/ArticuloForm.aspx" CssClass="btn btn-primary mb-3" Text="Agregar Pokemon"/>            
+                    %>                    
+            <asp:HyperLink runat="server" ID="btnAgregar" NavigateUrl="~/ArticuloForm.aspx" CssClass="btn btn-primary mb-3" Text="Agregar Pokemon" data-cy="btnAgregarPokemon"/>            
         </section>
             </ContentTemplate>
-        </asp:UpdatePanel>
-        
+        </asp:UpdatePanel>      
     </main>
 </asp:Content>

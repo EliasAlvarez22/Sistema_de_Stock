@@ -29,13 +29,11 @@ namespace ASP_NET_Framework
                 if (negocio.Login(user))
                 {
                     Session.Add("user", user);
-                    Response.Redirect("Perfil.aspx");
+                    Response.Redirect("Perfil.aspx", false);
                 }
-
             }
             catch (Exception ex)
             {
-
                 Session.Add("error", ex);
                 Response.Redirect("Error.aspx", false) ;
             }

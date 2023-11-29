@@ -113,6 +113,7 @@
     <Content Include="Home.aspx" />
     <Content Include="Inventario.aspx" />
     <Content Include="ListaArticulos.aspx" />
+    <Content Include="ListaUsuarios.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Perfil.aspx" />
     <Content Include="Register.aspx" />
@@ -197,6 +198,13 @@
     </Compile>
     <Compile Include="ListaArticulos.aspx.designer.cs">
       <DependentUpon>ListaArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListaUsuarios.aspx.cs">
+      <DependentUpon>ListaUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListaUsuarios.aspx.designer.cs">
+      <DependentUpon>ListaUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

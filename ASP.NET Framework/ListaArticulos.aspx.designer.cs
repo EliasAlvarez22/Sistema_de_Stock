@@ -78,15 +78,6 @@ namespace ASP_NET_Framework
         protected global::System.Web.UI.WebControls.GridView dgvArticulos;
 
         /// <summary>
-        /// Control ASE.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView ASE;
-
-        /// <summary>
         /// Control btnAgregar.
         /// </summary>
         /// <remarks>

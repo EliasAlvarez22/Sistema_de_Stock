@@ -14,10 +14,16 @@ namespace ASP_NET_Framework
         protected void Page_Load(object sender, EventArgs e)
         {
             
-        }
-
+        }            
         protected void BtnRegistrar_Click(object sender, EventArgs e)
         {
+            UsuarioNegocio negocioUsuario = new UsuarioNegocio();
+            Usuario user = new Usuario
+            {
+                Email = txtEmail.Text,
+                Password = txtPassword.Text,
+            };
+            negocioUsuario.RegisterUser(user);
 
         }
     }

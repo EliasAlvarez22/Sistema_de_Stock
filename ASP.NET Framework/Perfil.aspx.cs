@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +11,76 @@ namespace ASP_NET_Framework
 {
     public partial class Perfil : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            try
+            {
+                if (!Page.IsPostBack)
+                {
+                    //se recupera user de la session
+                    Usuario user = (Usuario)Session["user"];
+
+                    //Carga de datos del user
+                    txtEmail.Text = user.Email;
+                    txtNombre.Text = user.Nombre;
+                    imgPerfil.ImageUrl = user.ImagenPerfil != null ? "~/Images/Perfil/" + user.ImagenPerfil : "https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg";
+
+
+                    cbxAdmin.Checked = user.Admin;
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx", false);
+            }
+            /*
+            if (Request.QueryString["user"]!= null)
+            {
+                lblTituloLogin.Text = "Ingresaste " + Request.QueryString["user"].ToString();
+            }
+            else
+            {
+                lblTituloLogin.Text = "Vaya a Login para ver el menu.";
+            }
+            */
+        }
+        protected void txtImagen_onchange(object sender, EventArgs e)
+        {
+            //imgPerfil.ImageUrl = txtImagen.PostedFile.ToString();
+        }
+
+        protected void btnGuardarDatos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                //Guardado de datos
+                Usuario user = (Usuario)Session["user"];
+                user.Nombre = txtNombre.Text;
+                user.Email = txtEmail.Text;
+
+                if (txtImagen.Value != "")
+                {
+                    //Se obtiene ruta de la carpeta de imagenes de perfil
+                    string ruta = Server.MapPath("./Images/Perfil");
+                    //Escribir img
+                    user.ImagenPerfil = "perfil-" + user.Id + ".jpg";
+                    txtImagen.PostedFile.SaveAs(ruta + user.ImagenPerfil);
+                    //Leer img
+                    Image imgMaster = (Image)Master.FindControl("imgAvatar");
+                    imgMaster.ImageUrl = "~/Images/Perfil/" + user.ImagenPerfil;
+                    imgPerfil.ImageUrl = "~/Images/Perfil/" + user.ImagenPerfil;
+                }
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                negocio.GuardarPerfil(user);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }
