@@ -5,9 +5,21 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
+#github, #linkedIn {
+    font-size: 30px;
+    margin-left: 15px;
+    transition: transform 0.3s;
+}
+
+#github:hover, #linkedIn:hover {
+    transform: scale(2);
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .body-content {
         padding: 0;
     }
 }
+
