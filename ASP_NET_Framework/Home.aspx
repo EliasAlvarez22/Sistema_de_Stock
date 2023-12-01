@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="ASP_NET_Framework.Home" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <main class="">
+    <link href="Content/Home.css" rel="stylesheet" />
+    <main >
         <h1>Articulos</h1>
         <div class="row row-cols-1 row-cols-md-3 g-4">              
            <asp:Repeater runat="server" ID="RptArticulos" OnItemDataBound="RptArticulos_ItemDataBound">
