@@ -1,5 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="ASP_NET_Framework.SiteMaster" %>
+
 <!DOCTYPE html>
+
 <html lang="es">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -10,11 +12,13 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <link href="Content/Site.css" rel="stylesheet" />
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
 </head>
 <body>
     <form runat="server">
@@ -36,6 +40,7 @@
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" runat="server" href="~/Home">Home</a>
@@ -44,49 +49,43 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">                        
+                    <ul class="navbar-nav flex-grow-1">
+                        
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Inventario">Inventario</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/ListaArticulos">Lista Articulos</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/ListaUsuarios">Usuarios</a></li>
-                    </ul>     
-                     
-                <div class="d-flex">
-                    <ul class="navbar-nav flex-grow-1">
-                    <%if (Usuario != null){ %>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/ListaUsuarios">Usuarios</a></li>                       
+                        <%if (Usuario != null){ %>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Perfil">Mí Perfil</a></li>               
-                        <li class="nav-item">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-danger dropdown-toggle mt-2" data-bs-toggle="dropdown" aria-expanded="false">
-                            Cerrar sesión
-                            </button>
-                            <ul class="dropdown-menu p-0">
-                                <li class="nav-item"><span class="dropdown-item-text"> <%: "Usuario: "+ Usuario.Email %></span></li>
-                                <li class="nav-item"><asp:Button Text="Salir" runat="server" ID="btnExit" OnClick="btnExit_Click" CssClass="btn btn-danger w-100"/></li>
-                            </ul>
-                        </div>
-                        </li>       
-                        <asp:Image ID="imgAvatar" runat="server" Width="50px" Height="50px" AlternateText="Avatar Perfil" CssClass="rounded-circle img-fluid" />                        
-                    <%}
-                    else
-                    {%>                                                            
-                        <li class="nav-item"><a class="nav-link bg-primary btn me-2" runat="server" href="~/Login">Login</a></li>
-                        <li class="nav-item"><a class="nav-link text-bg-light btn" runat="server" href="~/Register">Registro</a></li>
-                    <%}%> 
-                    </ul>
-                    </div> 
-                </div>                                                                                           
+                                <li class="nav-item">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger dropdown-toggle mt-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Cerrar sesión
+                                        </button>
+                                        <ul class="dropdown-menu p-0">
+                                            <li><span class="dropdown-item-text"> <%: "Usuario: "+ Usuario.Email %></span></li>
+                                            <li><asp:Button Text="Salir" runat="server" ID="btnExit" OnClick="btnExit_Click" CssClass="btn btn-danger w-100"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>       
+                                <asp:Image ID="imgAvatar" runat="server" Width="50px" Height="50px" AlternateText="Avatar Perfil" CssClass="rounded-circle img-fluid" />                        
+                        <%}
+                          else
+                          { %>                                                            
+                            <li class="nav-item"><a class="nav-link" runat="server" href="~/Login">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" runat="server" href="~/Register">Registro</a></li>
+                        <%}%>                        
+                    </ul>                        
+                </div>                                    
             </div>
         </nav>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />   
+            <hr />
             <footer>
-                <ul class="list-unstyled d-flex">
-                    <li><a target="_blank" href="https://github.com/EliasAlvarez22/Sistema_de_Stock"><i id="github" class="bi bi-github"></i></a></li>
-                    <li><a target="_blank" href="https://www.linkedin.com/in/elias-alvarez-gutierrez/"><i id="linkedIn" class="bi bi-linkedin"></i></a></li>   
-                </ul>
-            </footer>           
+                <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
+            </footer>
         </div>
     </form>
     <asp:PlaceHolder runat="server">
