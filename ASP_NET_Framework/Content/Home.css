@@ -1,0 +1,11 @@
+﻿
+#agregarFav {
+    color: red;
+    transition: transform 0.2s; /* Agrega una transición para suavizar el cambio de tamaño */
+    font-size:25px;
+
+}
+   
+:active {
+    transform: scale(1.2); /* Cambia el tamaño al 120% durante el clic */
+}

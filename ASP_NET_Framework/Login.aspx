@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
         <Main class="d-flex flex-column align-items-center row" >       
                 
-        <section class="d-flex flex-column col-sm-6 border border-primary align-items-center">
+        <section class="d-flex flex-column col-sm-6 align-items-center">
             <asp:Label ID="lblTitulo" runat="server" Text="Login" CssClass="  d-block text-primary text-center display-2 text-md mb-4"/>
 
             <asp:Label ID="lblEdad" runat="server" Text="Email" CssClass="mb-2"/>
