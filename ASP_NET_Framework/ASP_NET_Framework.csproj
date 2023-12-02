@@ -105,6 +105,7 @@
     <Content Include="ArticuloForm.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\ArticuloForm.css" />
+    <Content Include="Content\Home.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
