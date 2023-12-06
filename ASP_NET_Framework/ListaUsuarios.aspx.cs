@@ -13,5 +13,15 @@ namespace ASP_NET_Framework
         {
 
         }
+
+        protected void dgvUsuarios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void dgvUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
+        }
     }
 }
