@@ -31,12 +31,7 @@ namespace ASP_NET_Framework
                 imgAvatar.ImageUrl = "~/Images/Perfil/" + Usuario.ImagenPerfil;
             else
                 imgAvatar.ImageUrl = "~/Images/Perfil/sinPerfil.jpeg";
-
-
-
-
         }
-
         protected void btnExit_Click(object sender, EventArgs e)
         {
             Session.Clear();

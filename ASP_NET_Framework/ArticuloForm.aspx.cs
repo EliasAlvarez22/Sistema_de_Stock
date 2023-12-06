@@ -3,9 +3,13 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.IO;
+
 
 namespace ASP_NET_Framework
 {
@@ -32,6 +36,7 @@ namespace ASP_NET_Framework
             SetCamposElementos();
             txtId.ReadOnly = true;
 
+            
             if (Request.QueryString["id"] != null)
             {
                 int id = int.Parse(Request.QueryString["id"]);
@@ -44,21 +49,40 @@ namespace ASP_NET_Framework
 
                 if (!IsPostBack)
                 {
-                    txtId.Text = seleccionado.Id.ToString();
-                    txtNombre.Text = seleccionado.Nombre;
-                    txtCodigo.Text = seleccionado.CodigoArticulo.ToString();
-                    txtDescripcion.Text = seleccionado.Descripcion.ToString();
+                    CargarDatosArticuloBasicos();
 
-                    //Seleccion de elementos del pokemon
-                    ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
-                    ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
+                    string rutaArchivo = "~/Images/Articulos/articulo-" + seleccionado.Id + ".jpg";
+                    string rutaFisica = Server.MapPath(rutaArchivo);
+
+                    //Si es null la imagen del articulo o la imagen de la carpeta se pone la imagen default
+                    if (seleccionado.ImagenUrl == null)
+                        imgArticulo.ImageUrl = "~/Images/Articulos/default.png";
+
+                    //Si es != de vacio y valida la request de la imagen se pone la imagen
+                    else if (txtUrlImagen.Text != "" && EsValidaImagen(txtUrlImagen.Text))
+                        imgArticulo.ImageUrl = txtUrlImagen.Text;
+
+                    if (File.Exists(rutaFisica))
+                    {
+                        imgArticulo.ImageUrl = rutaArchivo;
+                        InpArchivo.Name = "articulo-" + seleccionado.Id + ".jpg";
+                    }
+                    else
+                        imgArticulo.ImageUrl = "~/Images/Articulos/default.png";
+
+
+
                 }
             }
             else
             {
                 BtnEliminar.Visible = false;
+                BtnEliminar.Enabled = false;
                 txtId.Text = "Pendiente";
+                imgArticulo.ImageUrl = "~/Images/Articulos/default.png";
             }
+            
+            
         }
         private void SetCamposElementos()
         {          
@@ -85,40 +109,52 @@ namespace ASP_NET_Framework
 
             try
             {
-
                 if (Request.QueryString["id"] == null)
                     articulo = new Articulo();
 
                 articulo.Nombre = txtNombre.Text;
                 articulo.CodigoArticulo = txtCodigo.Text;
                 articulo.Descripcion = txtDescripcion.Text;
+                articulo.ImagenUrl = txtUrlImagen.Text;
+                articulo.Marca = new Marca
+                {
+                    Id = int.Parse(ddlMarca.SelectedValue)
+                };
+                articulo.Categoria = new Categoria
+                {
+                    Id = int.Parse(ddlCategoria.SelectedValue)
+                };
 
-                if (txtUrlImagen.Text != "")
+
+                if (InpArchivo.Name != "")
+                {
+                    //Se obtiene ruta de la carpeta de imagenes de Articulos
+                    string ruta = Server.MapPath("./Images/Articulos/");
+
+                    //Escribir img
+                    articulo.ImagenUrl = "articulo-" + articulo.Id + ".jpg";
+                    InpArchivo.PostedFile.SaveAs(ruta + articulo.ImagenUrl);
+
+
+                    //borra el texto de la txtUrlImagen
+                    txtUrlImagen.Text = "";
+                }
+
+                else if ((txtUrlImagen.Text != "") && EsValidaImagen(txtUrlImagen.Text))
                     articulo.ImagenUrl = txtDescripcion.Text;
-
-
-
-                articulo.Marca = new Marca();
-                articulo.Marca.Id = int.Parse(ddlMarca.SelectedValue);
-
-                articulo.Categoria = new Categoria();
-                articulo.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-
-                
+              
                 if (Request.QueryString["id"] == null)
                     articuloNegocio.Agregar(articulo);
                 else
-                    articuloNegocio.ModificarArticulo(articulo);
-
+                    articuloNegocio.ModificarArticulo(articulo);   
+                
                 
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
-
         protected void txtUrlImagen_TextChanged(object sender, EventArgs e)
         {
 
@@ -146,6 +182,47 @@ namespace ASP_NET_Framework
             {
                 Session.Add("error", ex);
                 Response.Redirect("Error.aspx", false);
+            }
+            
+        }
+
+        private bool EsValidaImagen (string url)
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = httpClient.GetAsync(url).Result;
+                    
+                    if (response.IsSuccessStatusCode)
+                        return true;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
+            return false;                    
+        }
+
+        private void CargarDatosArticuloBasicos()
+        {
+            try
+            {
+                txtId.Text = articulo.Id.ToString();
+                txtNombre.Text = articulo.Nombre;
+                txtCodigo.Text = articulo.CodigoArticulo;
+                txtDescripcion.Text = articulo.Descripcion;
+
+                //Seleccion de elementos del pokemon
+                ddlMarca.SelectedValue = articulo.Marca.Id.ToString();
+                ddlCategoria.SelectedValue = articulo.Categoria.Id.ToString();
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx");
             }
             
         }

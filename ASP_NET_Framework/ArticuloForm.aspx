@@ -36,10 +36,9 @@
                         <label for="txtUrlImagen" class="form-label">Url Imagen</label>
                         <asp:TextBox runat="server" ID="txtUrlImagen" CssClass="form-control mb-3" OnTextChanged="txtUrlImagen_TextChanged"  
                             AutoPostBack="true"/>   
-                        <asp:FileUpload runat="server" ID="FudImagen" CssClass="form-control mb-5" />
+                        <input type="file" ID="InpArchivo" runat="server" class="form-control mb-3"/>
                     </div>
-                    <asp:Image ImageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/800px-Pokebola-pokeball-png-0.png"
-                        runat="server" ID="imgPokemon" Width="60%" CssClass="ms-lg-5" Height="250px"/>
+                    <asp:Image runat="server" ID="imgArticulo" Width="60%" CssClass="ms-lg-5" Height="250px"/>
                 </ContentTemplate>
             </asp:UpdatePanel>            
         </div>
@@ -71,7 +70,7 @@
                 <i class="bi bi-exclamation-circle-fill text-success icon_eliminado "></i>
               </div>
               <div class="modal-footer justify-content-center">
-                  <a href="ListaArticulos.aspx" class="link-underline-light text-bg-success rounded-pill fs-5 btn">Volver a la lista de artículos</a
+                  <a href="ListaArticulos.aspx" class="link-underline-light text-bg-success rounded-pill fs-5 btn">Volver a la lista de artículos</a>
               </div>
             </div>
           </div>

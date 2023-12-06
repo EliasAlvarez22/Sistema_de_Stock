@@ -18,13 +18,23 @@ namespace ASP_NET_Framework
         protected void BtnRegistrar_Click(object sender, EventArgs e)
         {
             UsuarioNegocio negocioUsuario = new UsuarioNegocio();
-            Usuario user = new Usuario
+            try
             {
-                Email = txtEmail.Text,
-                Password = txtPassword.Text,
-            };
-            negocioUsuario.RegisterUser(user);
-
+                Usuario user = new Usuario
+                {
+                    Email = txtEmail.Text,
+                    Password = txtPassword.Text,
+                };
+                negocioUsuario.RegisterUser(user);
+                Session.Add("user", user);
+                Response.Redirect("Perfil.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx", false);
+            }
+           
         }
     }
 }

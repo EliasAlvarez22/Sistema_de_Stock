@@ -21,10 +21,15 @@ namespace ASP_NET_Framework
         {            
             ArticuloNegocio negocio = new ArticuloNegocio();
 
-            if (Session[sListArticulos] == null)            
-                Session.Add(sListArticulos, negocio.ListarArticulos());            
-            else            
-                Session[sListArticulos] = negocio.ListarArticulos();
+
+            if (Session[sListArticulos] == null)
+                Session.Add(sListArticulos, negocio.ListarArticulos());
+            else
+            {
+                List<Articulo> listArticulos = (List<Articulo>)Session[sListArticulos];
+            }
+
+
 
             dgvArticulos.DataSource = null;
             dgvArticulos.DataSource = Session[sListArticulos];
